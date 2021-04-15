@@ -1,6 +1,6 @@
 import React from 'react'
 import formatCurrency from './util'
-const Product = ({products}) => {
+const Product = ({products, addToCart}) => {
     return (
         <div>
             <ul className='products'>
@@ -16,7 +16,7 @@ const Product = ({products}) => {
                                 </a>
                                 <div className='product-price'>
                                     <div>{formatCurrency(product.price)}</div>
-                                    <button className='button primary'>Add to Cart</button>
+                                    <button onClick={() => addToCart(product)} className='button primary'>Add to Cart</button>
                                 </div>
                             </div>
                         </li>
