@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import formatCurrency from "./util";
 
-const Cart = ({ cartItems, removeFromCart }) => {
+const Cart = ({ cartItems, removeFromCart,createNewOrder  }) => {
+    const [showCheckout, setShowCheckout] = useState(false)
+    const [checkoutForm, setCheckoutForm] = useState({
+        email: '',
+        name: '',
+        address: ''
+    })
+
+    const handleInput = (e) => {
+        setCheckoutForm({...checkoutForm,[e.target.name]: e.target.value})
+    }
+
+    const createOrder = (e) => {
+        e.preventDefault()
+        const {email,name,address} = checkoutForm
+        const order = {
+            name,
+            email,
+            address,
+            cartItems: cartItems
+        }
+        createNewOrder(order)
+    }
   return (
     <div>
       {cartItems.length !== 0 ? (
@@ -42,12 +64,51 @@ const Cart = ({ cartItems, removeFromCart }) => {
                                 cartItems.reduce((a, c) => a + c.price * c.count, 0)
                             )}
                         </div>
-                        <button className='button primary'>Proceed</button>
+                        <button onClick={() => setShowCheckout(true)} className='button primary'>Proceed</button>
                       </div>
                   )
               }
           </div>
       </div>
+      {showCheckout && (
+          <div className='cart'> 
+            <form onSubmit={createOrder} >
+                <ul className='form-container'>
+                    <li>
+                       <label>Email</label>
+                        <input
+                            name='email'
+                            type='email'
+                            required
+                            value={checkoutForm.email}
+                            onChange={handleInput}
+                        ></input> 
+                    </li>
+                    <li>
+                       <label>Name</label>
+                        <input
+                            name='name'
+                            type='text'
+                            required
+                            value={checkoutForm.name}
+                            onChange={handleInput}
+                        ></input> 
+                    </li>
+                    <li>
+                       <label>Address</label>
+                        <input
+                            name='address'
+                            type='text'
+                            required
+                            value={checkoutForm.address}
+                            onChange={handleInput}
+                        ></input> 
+                    </li>
+                    <button className='button primary' type='submit' >Checkout</button>
+                </ul>
+            </form>
+          </div>
+      )}
     </div>
   );
 };
