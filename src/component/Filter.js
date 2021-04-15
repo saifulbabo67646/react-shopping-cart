@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Filter = ({count, handleSort, handleFilter, size, sort}) => {
+const Filter = ({counts, handleSort, handleFilter, size, sort}) => {
     return (
         <div className='filter'>
-            <div className='filter-result'>{count} Products</div>
+            <div className='filter-result'>{counts} Products</div>
             <div className='filter-sort'>
                 Order {" "}
                 <select value={sort} onChange={handleSort}>
