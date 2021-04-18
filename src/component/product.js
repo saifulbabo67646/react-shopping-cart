@@ -9,7 +9,7 @@ import { fetchProducts } from "../redux/actions/productActions";
 const Product = ({ addToCart }) => {
   const [isOpenModal, setModalOpen] = useState(null);
 
-  const allProducts = useSelector((state) => state.products.items);
+  const allProducts = useSelector((state) => state.products.filteredItems);
   const dispatch = useDispatch();
 
   useEffect(() => {
