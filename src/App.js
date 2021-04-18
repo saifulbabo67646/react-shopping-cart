@@ -4,6 +4,8 @@ import Filter from "./component/Filter";
 import Product from "./component/product";
 import { products } from "./data.json";
 import "./index.css";
+import {Provider} from 'react-redux'
+import store from './redux/store'
 
 function App() {
   const [productData, setProductData] = useState({
@@ -75,6 +77,7 @@ function App() {
   };
 
   return (
+    <Provider store={store}>
     <div className="grid-container">
       <header>
         <a href="/">Babus Shopping Cart</a>
@@ -89,7 +92,7 @@ function App() {
               size={productData.size}
               sort={productData.sort}
             />
-            <Product products={productData.prod} addToCart={addToCart}/>
+            <Product addToCart={addToCart}/>
           </div>
           <div className="sidebar"> 
             <Cart cartItems={bagcartItems} removeFromCart={removeFromCart} createNewOrder={createNewOrder}/>
@@ -98,6 +101,7 @@ function App() {
       </main>
       <footer>All Right Reserve.</footer>
     </div>
+    </Provider>
   );
 }
 
